@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding Of Tutin & Anjas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-vintage">
+
+    <!-- Audio Element untuk Google Drive -->
+    <audio id="background-music" loop>
+        <!-- Ganti dengan link Google Drive Anda -->
+        <source src="https://drive.google.com/uc?export=download&id=17aRPYmG7oZdcJdfGz1jTH-m6WQN0UxhN" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Music Control Panel -->
+    <div id="music-controls" class="position-fixed bottom-0 end-0 m-3" style="z-index: 1051;">
+        <div class="card card-custom shadow-lg border-0" style="width: 280px;">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-primary-custom mb-0"><i class="bi bi-music-note-beamed me-2"></i>Background Music</h6>
+                    <button class="btn btn-sm btn-outline-primary-custom" onclick="toggleMusicPanel()">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+                
+                <div id="music-panel-content">
+                    <!-- Music Info -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <img id="music-thumbnail" src="https://via.placeholder.com/50/556B2F/FFFFFF?text=♪" 
+                                 alt="Music Thumbnail" class="rounded" style="width: 50px; height: 50px; object-fit: cover; background-color: var(--primary-color);">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div id="music-title" class="small text-truncate" style="max-width: 180px;">Wedding Music</div>
+                            <div id="music-artist" class="text-muted small">Tutin & Anjas</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small text-muted mb-1">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                        <div class="progress" style="height: 4px;">
+                            <div id="progress-bar" class="progress-bar bg-primary-custom" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Control Buttons -->
+                    <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+                        <button class="btn btn-sm btn-outline-primary-custom" onclick="restartMusic()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                        <button id="play-pause-btn" class="btn btn-primary-custom rounded-circle" 
+                                style="width: 40px; height: 40px;" onclick="toggleMusic()">
+                            <i class="bi bi-play-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary-custom" onclick="nextMusic()">
+                            <i class="bi bi-skip-forward-fill"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-volume-down-fill text-primary-custom small"></i>
+                        <input type="range" id="volume-slider" class="form-range" min="0" max="100" value="50" 
+                               oninput="setVolume(this.value)" style="height: 6px;">
+                        <i class="bi bi-volume-up-fill text-primary-custom small"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slides">
+        <!-- Slide 1: Cover -->
+        <div class="slide active vh-100 align-items-center justify-content-center fade-in">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Cover" alt="Cover Photo" class="image-profile mb-4">
+                                <div class="text-muted small mb-2" style="letter-spacing: 2px;">THE WEDDING OF</div>
+                                <h1 class="text-primary-custom display-name mb-3">Tutin & Anjas</h1>
+                                <p class="mb-4">Kepada Yth<br />Bapak/Ibu/Saudara/i<br /><strong id="guest-name">Tamu Undangan</strong></p>
+                                <button class="btn btn-primary-custom btn-lg rounded-pill" onclick="playMusicAndContinue()">Buka Undangan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: Ayat Al-Quran -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">Maha Suci Allah</h2>
+                                <blockquote class="blockquote mb-3">
+                                    <p class="fst-italic">"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."</p>
+                                </blockquote>
+                                <footer class="blockquote-footer text-primary-custom">(QS. Ar Ruum: 21)</footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Bride -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-3">THE BRIDE</h2>
+                                <img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Tutin" alt="Foto Tutin" class="image-profile">
+                                <p class="display-name text-primary-custom mb-1">Supriatin Isnaniah</p>
+                                <p class="mb-3">Putri Pertama dari<br />Bapak Suparman & Ibu Siti Hadijah</p>
+                                <a href="https://www.instagram.com/tutinisnaniah/" target="_blank" class="btn btn-outline-primary-custom rounded-pill">
+                                    <i class="bi bi-instagram"></i> @tutinisnaniah
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Groom -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-3">THE GROOM</h2>
+                                <img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Anjas" alt="Foto Anjas" class="image-profile">
+                                <p class="display-name text-primary-custom mb-1">Anjas Aji Budiatma</p>
+                                <p class="mb-3">Putra Pertama dari<br />Bapak Acep Suhandi & Ibu Aty Triastuti</p>
+                                <a href="https://www.instagram.com/anjasajib/" target="_blank" class="btn btn-outline-primary-custom rounded-pill">
+                                    <i class="bi bi-instagram"></i> @anjasajib
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 5: Akad Nikah -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">Akad Nikah</h2>
+                                <p class="mb-4 lead">**Sabtu, 04 Oktober 2025**<br />08.00 - Selesai<br />Gedung SM SAIR Puslitbang Tekmira</p>
+                                <div class="row text-center mb-4">
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="days-akad">00</div><small>Hari</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="hours-akad">00</div><small>Jam</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="minutes-akad">00</div><small>Menit</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="seconds-akad">00</div><small>Detik</small></div>
+                                </div>
+                                <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=The%20Wedding%20Of%20Tutin%20%26%20Anjas%20(Akad)&dates=20251004T080000/20251004T100000&location=Gedung%20SM%20SAIR%20Puslitbang%20Tekmira" target="_blank" class="btn btn-primary-custom">Add to Calendar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Resepsi -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">Resepsi</h2>
+                                <p class="mb-4 lead">**Sabtu, 04 Oktober 2025**<br />11.00 - 14.00 WIB<br />Gedung SM SAIR Puslitbang Tekmira</p>
+                                <div class="row text-center mb-4">
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="days-resepsi">00</div><small>Hari</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="hours-resepsi">00</div><small>Jam</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="minutes-resepsi">00</div><small>Menit</small></div>
+                                    <div class="col-3"><div class="h3 text-primary-custom" id="seconds-resepsi">00</div><small>Detik</small></div>
+                                </div>
+                                <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=The%20Wedding%20Of%20Tutin%20%26%20Anjas%20(Resepsi)&dates=20251004T110000/20251004T140000&location=Gedung%20SM%20SAIR%20Puslitbang%20Tekmira" target="_blank" class="btn btn-primary-custom">Add to Calendar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7: Lokasi -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">Lokasi Acara</h2>
+                                <p class="mb-4">**Gedung SM SAIR Puslitbang Tekmira**<br />Jl. Jend. Sudirman No.623, Wr. Muncang, Kec. Bandung Kulon, Kota Bandung, Jawa Barat 40211</p>
+                                <iframe class="w-100 rounded mb-4" height="300" src="https://maps.google.com/maps?q=Gedung+SM+SAIR+Puslitbang+Tekmira&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0"></iframe>
+                                <a href="https://www.google.com/maps/place/?q=-6.9192494,107.578891" target="_blank" class="btn btn-primary-custom"><i class="bi bi-geo-alt-fill"></i> Petunjuk Ke Lokasi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Gallery -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">OUR MEMORIES</h2>
+                                <div class="row g-3">
+                                    <div class="col-4"><img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Photo1" class="img-fluid rounded shadow" alt="Photo1"></div>
+                                    <div class="col-4"><img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Photo2" class="img-fluid rounded shadow" alt="Photo2"></div>
+                                    <div class="col-4"><img src="https://via.placeholder.com/150/556B2F/FFFFFF?text=Photo3" class="img-fluid rounded shadow" alt="Photo3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9: RSVP -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <h2 class="text-primary-custom mb-4">Konfirmasi Kehadiran & Ucapan</h2>
+                                <blockquote class="blockquote">
+                                    <p class="fst-italic">"Semoga Allah memberkahimu di waktu bahagia dan memberkahimu di waktu susah, dan mengumpulkan kalian berdua dalam kebaikan"</p>
+                                </blockquote>
+                                <footer class="blockquote-footer text-primary-custom mb-4">(HR. Abu Daud)</footer>
+                                <a href="#" target="_blank" class="btn btn-primary-custom btn-lg mt-4">Kirim Ucapan & Konfirmasi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 10: Penutup -->
+        <div class="slide vh-100 align-items-center justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card card-custom shadow-lg border-0">
+                            <div class="card-body text-center p-5">
+                                <p class="mb-4 lead">Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do'a restu kepada kedua mempelai.</p>
+                                <div class="text-muted small mb-2">Hormat Kami Yang Mengundang</div>
+                                <h2 class="text-primary-custom display-name mb-3">Tutin & Anjas</h2>
+                                <small class="text-muted">Made with ❤️ by Glos.Invitation</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation position-fixed bottom-0 start-50 translate-middle-x d-flex gap-2 p-2 rounded-pill shadow">
+        <!-- Navigation buttons will be added here by JavaScript -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Global variables
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navContainer = document.querySelector('.navigation');
+        
+        // Ganti tanggal acara di sini
+        const dateAkad = new Date('October 04, 2025 08:00:00').getTime(); 
+        const dateResepsi = new Date('October 04, 2025 11:00:00').getTime();
+
+        // Audio Element
+        const audio = document.getElementById('background-music');
+        let isMusicPlaying = false;
+        let isMusicPanelCollapsed = false;
+        let progressInterval;
+
+        // -------------------------
+        // GOOGLE DRIVE MUSIC FUNCTIONALITY
+        // -------------------------
+
+        function initializeMusic() {
+            // Set volume default
+            setVolume(50);
+            
+            // Event listeners untuk audio
+            audio.addEventListener('loadedmetadata', function() {
+                updateDurationDisplay();
+            });
+            
+            audio.addEventListener('timeupdate', function() {
+                updateProgress();
+            });
+            
+            audio.addEventListener('ended', function() {
+                // Loop otomatis karena audio element sudah punya atribut loop
+                audio.currentTime = 0;
+                audio.play();
+            });
+            
+            audio.addEventListener('play', function() {
+                isMusicPlaying = true;
+                document.getElementById('play-pause-btn').innerHTML = '<i class="bi bi-pause-fill"></i>';
+                startProgressTracking();
+            });
+            
+            audio.addEventListener('pause', function() {
+                isMusicPlaying = false;
+                document.getElementById('play-pause-btn').innerHTML = '<i class="bi bi-play-fill"></i>';
+                stopProgressTracking();
+            });
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(function(error) {
+                    console.log('Audio play failed:', error);
+                    alert('Mohon klik "Buka Undangan" terlebih dahulu untuk memulai musik');
+                });
+            }
+        }
+
+        function playMusicAndContinue() {
+            // Autoplay policy: user interaction required
+            audio.play().then(function() {
+                isMusicPlaying = true;
+                document.getElementById('play-pause-btn').innerHTML = '<i class="bi bi-pause-fill"></i>';
+                nextSlide();
+            }).catch(function(error) {
+                console.log('Autoplay failed:', error);
+                // Lanjutkan ke slide berikutnya meski audio gagal
+                nextSlide();
+            });
+        }
+
+        function setVolume(volume) {
+            audio.volume = volume / 100;
+            document.getElementById('volume-slider').value = volume;
+        }
+
+        function restartMusic() {
+            audio.currentTime = 0;
+            if (!isMusicPlaying) {
+                audio.play();
+            }
+        }
+
+        function nextMusic() {
+            // Untuk single track, restart musik
+            restartMusic();
+        }
+
+        function updateProgress() {
+            if (audio.duration) {
+                const currentTime = audio.currentTime;
+                const duration = audio.duration;
+                
+                // Update progress bar
+                const progressPercent = (currentTime / duration) * 100;
+                document.getElementById('progress-bar').style.width = progressPercent + '%';
+                
+                // Update time display
+                document.getElementById('current-time').textContent = formatTime(currentTime);
+            }
+        }
+
+        function updateDurationDisplay() {
+            if (audio.duration) {
+                document.getElementById('duration').textContent = formatTime(audio.duration);
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function startProgressTracking() {
+            stopProgressTracking();
+            progressInterval = setInterval(updateProgress, 1000);
+        }
+
+        function stopProgressTracking() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+        }
+
+        function toggleMusicPanel() {
+            const panelContent = document.getElementById('music-panel-content');
+            const toggleBtn = document.querySelector('#music-controls .btn');
+            
+            if (isMusicPanelCollapsed) {
+                panelContent.style.display = 'block';
+                toggleBtn.innerHTML = '<i class="bi bi-chevron-down"></i>';
+            } else {
+                panelContent.style.display = 'none';
+                toggleBtn.innerHTML = '<i class="bi bi-chevron-up"></i>';
+            }
+            isMusicPanelCollapsed = !isMusicPanelCollapsed;
+        }
+
+        // -------------------------
+        // CARA MENGGANTI MUSIK DARI GOOGLE DRIVE:
+        // -------------------------
+        /*
+        1. Upload file musik Anda ke Google Drive
+        2. Klik kanan pada file -> "Get shareable link"
+        3. Copy FILE ID dari link share:
+           Format link: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+        4. Ganti YOUR_GOOGLE_DRIVE_FILE_ID dengan FILE_ID Anda
+        5. Format URL yang benar: 
+           https://drive.google.com/uc?export=download&id=FILE_ID
+        */
+
+        // Contoh: 
+        // <source src="https://drive.google.com/uc?export=download&id=1ABC123def456GHI789jkl" type="audio/mpeg">
+
+        // -------------------------
+        // URL PARAMETER FUNCTIONALITY (Nama Tamu)
+        // -------------------------
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function setGuestName() {
+            const guestNameElement = document.getElementById('guest-name');
+            const guestName = getQueryParam('to');
+
+            if (guestName && guestNameElement) {
+                const formattedName = guestName.replace(/[\+\-_]/g, ' '); 
+                const capitalizedName = formattedName.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+                guestNameElement.textContent = capitalizedName;
+            } 
+        }
+
+        // -------------------------
+        // SLIDESHOW & NAVIGATION ICON FUNCTIONALITY
+        // -------------------------
+        
+        const slideIcons = [
+            'bi-envelope-heart',    // Slide 1: Cover
+            'bi-book',              // Slide 2: Quotes
+            'bi-person-standing-dress', // Slide 3: Bride
+            'bi-person-standing',   // Slide 4: Groom
+            'bi-calendar-check',    // Slide 5: Akad
+            'bi-cup-hot',           // Slide 6: Resepsi
+            'bi-geo-alt',           // Slide 7: Lokasi
+            'bi-images',            // Slide 8: Gallery
+            'bi-chat-dots',         // Slide 9: RSVP
+            'bi-heart'              // Slide 10: Thanks
+        ];
+
+        // Membuat tombol navigasi menggunakan ikon
+        slides.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.className = 'nav-btn';
+            
+            const icon = document.createElement('i');
+            icon.className = 'bi ' + slideIcons[index];
+            button.appendChild(icon);
+
+            if (index === 0) {
+                button.classList.add('active');
+            }
+            button.onclick = () => goToSlide(index);
+            navContainer.appendChild(button);
+        });
+
+        const navButtons = document.querySelectorAll('.nav-btn');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'fade-in');
+                navButtons[i].classList.remove('active');
+            });
+            slides[index].classList.add('active', 'fade-in');
+            navButtons[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // -------------------------
+        // COUNTDOWN FUNCTIONALITY
+        // -------------------------
+
+        function countdownTimer(targetDate, daysId, hoursId, minutesId, secondsId) {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById(daysId).innerHTML = '00';
+                document.getElementById(hoursId).innerHTML = '00';
+                document.getElementById(minutesId).innerHTML = '00';
+                document.getElementById(secondsId).innerHTML = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById(daysId).innerHTML = String(days).padStart(2, '0');
+            document.getElementById(hoursId).innerHTML = String(hours).padStart(2, '0');
+            document.getElementById(minutesId).innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById(secondsId).innerHTML = String(seconds).padStart(2, '0');
+        }
+
+        // Update timers every second
+        setInterval(() => {
+            countdownTimer(dateAkad, 'days-akad', 'hours-akad', 'minutes-akad', 'seconds-akad');
+            countdownTimer(dateResepsi, 'days-resepsi', 'hours-resepsi', 'minutes-resepsi', 'seconds-resepsi');
+        }, 1000);
+
+        // Panggil fungsi inisialisasi saat DOM siap
+        document.addEventListener('DOMContentLoaded', () => {
+            setGuestName();
+            showSlide(0);
+            initializeMusic();
+        });
+    </script>
+</body>
+</html>

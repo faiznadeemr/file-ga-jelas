@@ -1,0 +1,141 @@
+/*
+ * style.css
+ * Styling untuk Undangan Pernikahan Digital Tutin & Anjas
+ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+:root {
+    --primary-color: #556B2F; /* Dark Olive Green */
+    --secondary-color: #F5F5DC; /* Beige */
+    --text-color: #333;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* === GENERAL STYLES === */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    background: var(--secondary-color);
+}
+
+/* Ganti URL gambar latar belakang ini sesuai kebutuhan Anda */
+.bg-vintage {
+    background-image: url('https://via.placeholder.com/800x600?text=Vintage+Forest+BG');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* === SLIDE & CARD STYLES === */
+.slide { 
+    display: none; 
+}
+
+.slide.active { 
+    display: flex; 
+}
+
+.card-custom {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+/* === TYPOGRAPHY & COLOR OVERRIDES === */
+.display-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.text-primary-custom { 
+    color: var(--primary-color) !important; 
+}
+
+/* === BUTTON STYLES === */
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: background-color 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #6B8E23;
+    border-color: #6B8E23;
+}
+
+.btn-outline-primary-custom {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s;
+}
+
+.btn-outline-primary-custom:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* === IMAGE & PROFILE STYLES === */
+.image-profile {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    margin: 0 auto 1.5rem;
+    display: block;
+}
+
+/* === NAVIGATION (ICONS) STYLES === */
+.navigation { 
+    z-index: 1050; 
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 50px !important;
+    padding: 8px 15px !important;
+}
+
+.nav-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    opacity: 0.8;
+    background-color: rgba(85, 107, 47, 0.5); /* Warna non-aktif */
+    color: white; /* Warna ikon */
+    border: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.nav-btn.active {
+    opacity: 1;
+    transform: scale(1.1);
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+/* === ANIMATION === */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.fade-in { 
+    animation: fadeIn 1s ease-in-out; 
+}
+
+/* Style tambahan agar iframe YouTube tersembunyi */
+#youtube-music-player {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
